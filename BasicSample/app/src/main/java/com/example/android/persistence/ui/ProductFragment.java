@@ -16,16 +16,16 @@
 
 package com.example.android.persistence.ui;
 
-import android.arch.lifecycle.LifecycleFragment;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.android.persistence.R;
 import com.example.android.persistence.databinding.ProductFragmentBinding;
@@ -70,9 +70,9 @@ public class ProductFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         ProductViewModel.Factory factory = new ProductViewModel.Factory(
-                getActivity().getApplication(), getArguments().getInt(KEY_PRODUCT_ID));
+                requireActivity().getApplication(), getArguments().getInt(KEY_PRODUCT_ID));
 
-        final ProductViewModel model = ViewModelProviders.of(this, factory)
+        final ProductViewModel model = new ViewModelProvider(this, factory)
                 .get(ProductViewModel.class);
 
         mBinding.setProductViewModel(model);

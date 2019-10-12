@@ -16,13 +16,14 @@
 
 package com.example.android.observability.ui;
 
-import android.arch.lifecycle.LifecycleActivity;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.android.observability.Injection;
 import com.example.android.persistence.R;
@@ -35,7 +36,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Main screen of the app. Displays a user name and gives the option to update the user name.
  */
-public class UserActivity extends LifecycleActivity {
+public class UserActivity extends AppCompatActivity {
 
     private static final String TAG = UserActivity.class.getSimpleName();
 
@@ -61,7 +62,7 @@ public class UserActivity extends LifecycleActivity {
         mUpdateButton = findViewById(R.id.update_user);
 
         mViewModelFactory = Injection.provideViewModelFactory(this);
-        mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(UserViewModel.class);
+        mViewModel = new ViewModelProvider(this, mViewModelFactory).get(UserViewModel.class);
         mUpdateButton.setOnClickListener(v -> updateUserName());
     }
 
